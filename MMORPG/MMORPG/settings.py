@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'Users',
+    'board',
     'django_filters',
     'django_apscheduler',
     'allauth',
@@ -142,14 +142,14 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = True
 
 DEFAULT_FROM_EMAIL = "glavpochta87@gmail.com"
 
 SERVER_EMAIL = "glavpochta87@gmail.com"
 
 ADMINS = (
-    ('anton', 'anton@yandex.r'),
+    ('anton', 'anton@yandex.ru'),
 )
 
 CELERY_BROKER_URL = 'redis://localhost:6379'

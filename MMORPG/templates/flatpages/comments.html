@@ -1,0 +1,11 @@
+% load static %}
+
+<form method="post" action="{% url 'detali' post.id%}">
+    {% csrf_token %}
+
+    <input type="hidden" name="reply_id" value="{{ reply_id }}">
+    <input type="submit" value="Откликнуться" name="status1">
+    <input type="submit" value="Отклонить" name="status2">
+
+
+</form>

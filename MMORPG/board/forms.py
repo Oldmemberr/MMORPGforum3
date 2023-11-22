@@ -4,20 +4,20 @@ from .models import Post, Comment
 
 
 class PostForm(ModelForm):
-      class Meta:
-            model = Post
-            #fields = '__all__'
-            fields = ['title', 'text', 'author', 'categoryType', 'postImage', "category"]
-            widgets = {
-                'title': forms.TextInput(attrs={'class': 'form-control'}),
-                'text': forms.Textarea(attrs={'class': 'form-control'}),
-                'categoryType': forms.Select(choices=Post.TYPES, attrs={'class': 'form-select'}),
-                'image': forms.FileInput(),
-                'category': forms.Textarea(attrs={'class': 'form-control'}),
+    class Meta:
+        model = Post
+        #fields = '__all__'
+        fields = ['title', 'text','avthor','categoryType','postImage',"category"]
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'text': forms.Textarea(attrs={'class': 'form-control'}),
+            'categoryType': forms.Select(choices=Post.TYPES, attrs={'class': 'form-select'}),
+            'image': forms.FileInput(),
+            'category': forms.Textarea(attrs={'class': 'form-control'}),
 
             }
 
-            labels = {
+        labels = {
                 'title': 'Заголовок ',
                 'text': 'Объявление',
                 'categoryType': 'Категория',

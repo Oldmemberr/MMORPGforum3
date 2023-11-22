@@ -26,21 +26,20 @@ class UnSubscribeToCategory(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        delete_subscription = UsersSubscribed.objects.get(user=self.request.user, category=Category.objects.get(pk=context['pk']))
-        delete_subscription.delete()
+        delete_subcription = UsersSubscribed.objects.get(user=self.request.user, category=Category.objects.get(pk=context['pk']))
+        delete_subcription.delete()
         context['unsubscribed'] = Category.objects.get(pk=context['pk'])
         return context
 
 
 class PostsList(ListView):
-     model = Post
-     template_name = 'board.html'
-     context_object_name = 'posts'
-     queryset = Post.objects.order_by('-id')
-     form_class = PostForm
+    model = Post
+    template_name = 'board.html'
+    context_object_name = 'posts'
+    queryset = Post.objects.order_by('-id')
+    form_class = PostForm
 
-
-     def get_context_data(self,**kwargs):
+    def get_context_data(self,**kwargs):
          context = super().get_context_data(**kwargs)
          context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
          return context
@@ -50,7 +49,6 @@ class DetailList(DetailView):
     model = Post
     template_name = 'detali.html'
     context_object_name = 'post'
-
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -66,7 +64,8 @@ class DetailList(DetailView):
         userEditor=self.request.user,
         post=self.get_object())
         new_comment.save()
-        return render(request, 'detail.html', args=[self.id] )
+        return render(request, 'detali.html',args=[self.id] )
+
 
 class CommentView(DetailView):
     model = Comment
@@ -82,13 +81,13 @@ class CommentView(DetailView):
     def reply_status(request,**kwargs):
         data = super().get_context_data(**kwargs)
         if 'status1' in request.POST:
-         messages.success(request, 'Отклик принят')
+            messages.success(request, 'Отклик принят')
         elif 'status2' in request.POST:
-         messages.success(request, 'Отклик отклонён')
-        return HttpResponseRedirect('comments.html', data)
+            messages.success(request, 'Отклик отклонён')
+        return HttpResponseRedirect('comments.html',data)
 
 
-class AddList(LoginRequiredMixin, CreateView):
+class AddList(LoginRequiredMixin,CreateView):
     queryset = Post.objects.all()
     template_name = 'add.html'
     form_class = PostForm
@@ -105,9 +104,7 @@ class AddList(LoginRequiredMixin, CreateView):
         return render('board.html')
 
 
-
-
-class EditList(LoginRequiredMixin, UpdateView):
+class EditList(LoginRequiredMixin,UpdateView,):
     queryset = Post.objects.all()
     template_name = 'edit.html'
     form_class = PostForm
@@ -120,6 +117,7 @@ class EditList(LoginRequiredMixin, UpdateView):
         form.save()
         return super().form_valid(form)
 
+
 class PostDelete(DeleteView):
     template_name = 'delete.html'
     queryset = Post.objects.all()
@@ -127,3 +125,7 @@ class PostDelete(DeleteView):
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
+
+
+
+

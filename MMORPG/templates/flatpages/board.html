@@ -1,0 +1,47 @@
+{% extends 'default.html' %}
+{% load static %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+
+<h3>{{ time_now }}</h3>
+    <h1>Все новости</h1>
+    <hr>
+Новостей: {{ post | length }} шт.
+
+<table class="table">
+   <tr>
+       <th scope="col">
+           Заголовок
+       </th>
+       <th scope="col">
+           Объявление
+       </th>
+   </tr>
+
+{% for post in posts %}
+   <tr>
+       <td>
+           <a href="{% url 'detali' post.id %}">{{post.title }}</a>
+       </td>
+       <td>
+           {{post.text }}
+       </td>
+       <td>
+           <a href="{% url 'subscribe' post.id %}">Подписаться на категорию {{post.category}} </a>
+
+       </td>
+       <td>
+           <img {{ post.image.url }} width="100px">
+
+       </td>
+   </tr>
+{% endfor %}
+</table>
+<br>
+<a href="{% url 'add' %}">Добавить новое объявление</a>
+
+{% endblock content %}
